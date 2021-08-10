@@ -2,6 +2,6 @@
 
 `postgres` with language ja_jp_utf8
 
-## Docker Imageのビルド
+## Docker Image
 
-https://github.com/icare-jp-oss/postgres-ja-jp-utf8 のmasterブランチへのpushをトリガーに、docker hubでimageがビルドされます。
+[docker hub](https://hub.docker.com/r/icarejposs/postgres-ja-jp-utf8)でイメージをホストしています。
