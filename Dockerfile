@@ -2,7 +2,7 @@ FROM postgres:12.11
 LABEL maintainer="dev@icare.jpn.com"
 RUN localedef -i ja_JP -c -f UTF-8 -A /usr/share/locale/locale.alias ja_JP.UTF-8
 ENV LANG=ja_JP.utf8
-RUN echo "\
+RUN echo "\n\
 #listen_addresses = '*'\n\
 max_connections = 100\n\
 shared_buffers = 160MB\n\

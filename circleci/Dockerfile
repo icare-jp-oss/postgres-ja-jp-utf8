@@ -2,7 +2,7 @@ FROM cimg/postgres:12.11
 LABEL maintainer="dev@icare.jpn.com"
 RUN localedef -i ja_JP -c -f UTF-8 -A /usr/share/locale/locale.alias ja_JP.UTF-8
 ENV LANG=ja_JP.utf8
-RUN echo "\
+RUN echo -e "\n\
 #listen_addresses = '*'\n\
 max_connections = 100\n\
 shared_buffers = 160MB\n\
@@ -32,4 +32,4 @@ timezone = 'Asia/Tokyo'\n\
 #lc_numeric = 'ja_JP.utf8'\n\
 #lc_time = 'ja_JP.utf8'\n\
 #default_text_search_config = 'pg_catalog.simple'\n\
-" >>/usr/share/postgresql/12/postgresql.conf.sample
+" >>/usr/lib/postgresql/12/share/postgresql.conf.sample
