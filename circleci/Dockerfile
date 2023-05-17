@@ -12,7 +12,8 @@ RUN apt-get update -qq && apt-get install -y \
   && tar zxf pg_bigm-1.2-20200228.tar.gz \
   && cd pg_bigm-1.2-20200228 \
   && make USE_PGXS=1 \
-  && make USE_PGXS=1 install
+  && make USE_PGXS=1 install \
+  && rm -rf pg_bigm-1.2-20200228 pg_bigm-1.2-20200228.tar.gz
 RUN echo "\n\
 #listen_addresses = '*'\n\
 max_connections = 100\n\
