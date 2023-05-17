@@ -2,6 +2,17 @@ FROM postgres:12.11
 LABEL maintainer="dev@icare.jpn.com"
 RUN localedef -i ja_JP -c -f UTF-8 -A /usr/share/locale/locale.alias ja_JP.UTF-8
 ENV LANG=ja_JP.utf8
+RUN apt-get update -qq && apt-get install -y \
+  curl \
+  postgresql-server-dev-12 \
+  make \
+  gcc \
+  libicu-dev \
+  && curl -OL https://ja.osdn.net/projects/pgbigm/downloads/72448/pg_bigm-1.2-20200228.tar.gz \
+  && tar zxf pg_bigm-1.2-20200228.tar.gz \
+  && cd pg_bigm-1.2-20200228 \
+  && make USE_PGXS=1 \
+  && make USE_PGXS=1 install
 RUN echo "\n\
 #listen_addresses = '*'\n\
 max_connections = 100\n\
@@ -32,4 +43,5 @@ timezone = 'Asia/Tokyo'\n\
 #lc_numeric = 'ja_JP.utf8'\n\
 #lc_time = 'ja_JP.utf8'\n\
 #default_text_search_config = 'pg_catalog.simple'\n\
+shared_preload_libraries = 'pg_bigm'\n\
 " >>/usr/share/postgresql/12/postgresql.conf.sample
