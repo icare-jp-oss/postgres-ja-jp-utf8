@@ -16,7 +16,9 @@ RUN apt-get update -qq && apt-get install -y \
   && cd pg_bigm-1.2-20240606 \
   && make USE_PGXS=1 \
   && make USE_PGXS=1 install \
-  && rm -rf ../pg_bigm-1.2-20240606 ../v1.2-20240606.tar.gz
+  && rm -rf ../pg_bigm-1.2-20240606 ../v1.2-20240606.tar.gz \
+  && apt-get clean \
+  && rm -rf /var/lib/apt/lists/*
 
 RUN echo "\n\
 max_connections = 100\n\
