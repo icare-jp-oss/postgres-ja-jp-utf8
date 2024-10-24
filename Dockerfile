@@ -1,19 +1,23 @@
-FROM postgres:12.14
+FROM postgres:14.11
 LABEL maintainer="dev@icare.jpn.com"
-RUN localedef -i ja_JP -c -f UTF-8 -A /usr/share/locale/locale.alias ja_JP.UTF-8
+
 ENV LANG=ja_JP.utf8
+
 RUN apt-get update -qq && apt-get install -y \
   curl \
-  postgresql-server-dev-12 \
+  postgresql-server-dev-14 \
   make \
   gcc \
   libicu-dev \
-  && curl -OL https://ja.osdn.net/projects/pgbigm/downloads/72448/pg_bigm-1.2-20200228.tar.gz \
-  && tar zxf pg_bigm-1.2-20200228.tar.gz \
-  && cd pg_bigm-1.2-20200228 \
+  ca-certificates \
+  && localedef -i ja_JP -c -f UTF-8 -A /usr/share/locale/locale.alias ja_JP.UTF-8 \
+  && curl -OL https://github.com/pgbigm/pg_bigm/archive/refs/tags/v1.2-20240606.tar.gz \
+  && tar zxf v1.2-20240606.tar.gz \
+  && cd pg_bigm-1.2-20240606 \
   && make USE_PGXS=1 \
   && make USE_PGXS=1 install \
-  && rm -rf /pg_bigm-1.2-20200228 /pg_bigm-1.2-20200228.tar.gz
+  && rm -rf ../pg_bigm-1.2-20240606 ../v1.2-20240606.tar.gz
+
 RUN echo "\n\
 #listen_addresses = '*'\n\
 max_connections = 100\n\
