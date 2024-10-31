@@ -3,10 +3,6 @@ LABEL maintainer="dev@icare.jpn.com"
 
 ENV LANG=ja_JP.utf8
 
-ENV POSTGRES_USER admin
-ENV POSTGRES_PASSWORD admin
-ENV POSTGRES_DB test_db
-
 RUN apt-get update -qq && apt-get install -y \
   curl \
   postgresql-server-dev-14 \
