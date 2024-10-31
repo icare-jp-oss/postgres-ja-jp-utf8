@@ -1,4 +1,4 @@
-FROM postgres:14.11
+FROM postgres:14.13
 LABEL maintainer="dev@icare.jpn.com"
 
 ENV LANG=ja_JP.utf8
