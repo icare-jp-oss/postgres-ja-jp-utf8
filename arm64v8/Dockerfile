@@ -1,4 +1,4 @@
-FROM arm64v8/postgres:14.16
+FROM arm64v8/postgres:14.17
 LABEL maintainer="dev@icare.jpn.com"
 
 ENV LANG=ja_JP.utf8
