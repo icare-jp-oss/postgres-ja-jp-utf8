@@ -14,7 +14,7 @@
     - PRを作成
     - docker hub上でイメージがビルドされることを確認
     - 該当のブランチに対してタグをpush
-    - 例
+        - 例
 
     ```
     git tag -a **.**(version) -m "image with Postgres version **.**"
