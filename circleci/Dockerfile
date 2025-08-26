@@ -1,11 +1,12 @@
-FROM postgres:14.17
+FROM postgres:15.13
 LABEL maintainer="dev@icare.jpn.com"
 
 ENV LANG=ja_JP.utf8
 
+# 各種必要なライブラリをインストール
 RUN apt-get update -qq && apt-get install -y \
   curl \
-  postgresql-server-dev-14 \
+  postgresql-server-dev-15 \
   make \
   gcc \
   libicu-dev \
@@ -20,25 +21,8 @@ RUN apt-get update -qq && apt-get install -y \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
 
-RUN echo "\n\
-max_connections = 100\n\
-shared_buffers = 160MB\n\
-temp_buffers = 16MB\n\
-work_mem = 16MB\n\
-max_worker_processes = 64\n\
-max_parallel_maintenance_workers = 8\n\
-max_parallel_workers_per_gather = 8\n\
-max_parallel_workers = 64\n\
-wal_level = minimal\n\
-fsync = off\n\
-synchronous_commit = off\n\
-wal_sync_method = fsync\n\
-full_page_writes = off\n\
-max_wal_senders = 0\n\
-random_page_cost = 1.2\n\
-jit = off\n\
-log_timezone = 'Asia/Tokyo'\n\
-stats_temp_directory = '/tmp'\n\
-timezone = 'Asia/Tokyo'\n\
-shared_preload_libraries = 'pg_bigm'\n\
-" >>/usr/share/postgresql/postgresql.conf.sample
+# conf.d ディレクトリをコンテナにコピー
+COPY conf.d /etc/postgresql/conf.d
+
+# postgresql.conf.sample の末尾に include_dir を追記
+RUN echo "\ninclude_dir '/etc/postgresql/conf.d'" >> /usr/share/postgresql/postgresql.conf.sample
